@@ -90,7 +90,7 @@ class MainWindow(QMainWindow):
         self.button_layout.addWidget(self.add_button)
 
         self.delete_button = QPushButton("Deletar Chave", self)
-        self.delete_button.setStyleSheet("font-size: 16px; padding: 8px 16px;")
+        self.delete_button.setStyleSheet("background-color: #c0392b; color: #ffffff; border: none; border-radius: 4px; padding: 8px 16px;")
         self.delete_button.clicked.connect(self.confirm_delete_key)
         self.button_layout.addWidget(self.delete_button)
 
