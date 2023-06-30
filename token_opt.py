@@ -4,12 +4,10 @@ import base64
 import hashlib
 
 class TokenOPT:
-    def __init__(self) -> None:
-        # self.intervalo de 30 segundos
-        self.interval = 30
-    
-    def generate_otp(self, secret_key):
-        message = int(time.time()) // self.interval  # Tempo dividido pelo intervalo
+    @staticmethod
+    # Função para gerar o código OTP usando HMAC-SHA1
+    def generate_otp(secret_key, interval=30):
+        message = int(time.time()) // interval  # Tempo dividido pelo intervalo
         message_bytes = message.to_bytes(8, byteorder="big")
         secret_bytes = base64.b32decode(secret_key, casefold=True)
         hmac_hash = hmac.new(secret_bytes, message_bytes, hashlib.sha1).digest()
@@ -19,8 +17,9 @@ class TokenOPT:
         otp = str(otp).zfill(6)[-6:]  # Preenchimento com zeros à esquerda e truncamento para 6 dígitos
         return otp
 
+    @staticmethod
     # Função para calcular o tempo restante até a próxima atualização
-    def calculate_remaining_time(self):
+    def calculate_remaining_time(interval=30):
         current_time = int(time.time())
-        remaining_time = self.interval - (current_time % self.interval)
+        remaining_time = interval - (current_time % interval)
         return remaining_time
