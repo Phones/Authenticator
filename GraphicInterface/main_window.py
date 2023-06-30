@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtWidgets import (
     QApplication,
     QMainWindow,
@@ -249,14 +250,14 @@ class MainWindow(QMainWindow):
 
     # Função para salvar as chaves no arquivo
     def save_keys_to_file(self):
-        with open(".keys.txt", "w") as file:
+        with open("Keys/.keys.txt", "w") as file:
             for name, key in self.keys:
                 file.write(f"{name},{key}\n")
 
     # Função para carregar as chaves do arquivo
     def load_keys_from_file(self):
-        if os.path.exists(".keys.txt"):
-            with open(".keys.txt", "r") as file:
+        if os.path.exists("Keys/.keys.txt"):
+            with open("Keys/.keys.txt", "r") as file:
                 for line in file:
                     name, key = line.strip().split(",")
                     self.keys.append((name, key))
@@ -300,7 +301,7 @@ class MainWindow(QMainWindow):
             settings.setValue("theme", "dark")
         else:
             settings.setValue("theme", "light")
-            
+
     # Função para lidar com o evento de fechamento do programa
     def closeEvent(self, event):
         self.save_settings()  # Salva as configurações antes de fechar o programa
