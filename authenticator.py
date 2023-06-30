@@ -39,7 +39,7 @@ class Authenticator(MainWindow):
     # Função para confirmar a exclusão da chave selecionada
     def confirm_delete_key(self):
         if self.selected_index is not None:
-            dialog = ConfirmationDialog(self)
+            dialog = ConfirmationDialog(self, dialog_dark_mode=self.dark_mode)
             if dialog.exec_() == QDialog.Accepted:
                 self.delete_key()
 
@@ -49,6 +49,85 @@ class Authenticator(MainWindow):
             del self.keys[self.selected_index]
             self.list_widget.takeItem(self.selected_index)
             self.save_keys_to_file()  # Salva as chaves no arquivo
+
+    # Função para atualizar o tema
+    def update_theme(self):
+        if self.dark_mode:
+            self.setStyleSheet(
+                """
+                QMessageBox {
+                    background-color: #222222;
+                }
+                QMainWindow {
+                    background-color: #222222;
+                }
+                QLabel {
+                    color: #ffffff;
+                }
+                QLineEdit {
+                    background-color: #333333;
+                    border: 1px solid #555555;
+                    border-radius: 4px;
+                    padding: 5px;
+                    color: #ffffff;
+                }
+                QPushButton {
+                    background-color: #2980b9;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 4px;
+                    padding: 8px 16px;
+                }
+                QPushButton:hover {
+                    background-color: #40739e;
+                }
+                QListWidget {
+                    background-color: #333333;
+                    border: 1px solid #555555;
+                    border-radius: 4px;
+                    padding: 5px;
+                    color: #ffffff;
+                }
+                """
+            )
+            self.mode_button.setText("Modo Claro")
+        else:
+            self.setStyleSheet(
+                """
+                QMessageBox {
+                    background-color: #f0f0f0;
+                }
+                QMainWindow {
+                    background-color: #f0f0f0;
+                }
+                QLabel {
+                    color: #000000;
+                }
+                QLineEdit {
+                    background-color: #ffffff;
+                    border: 1px solid #cccccc;
+                    border-radius: 4px;
+                    padding: 5px;
+                }
+                QPushButton {
+                    background-color: #2980b9;
+                    color: #ffffff;
+                    border: none;
+                    border-radius: 4px;
+                    padding: 8px 16px;
+                }
+                QPushButton:hover {
+                    background-color: #40739e;
+                }
+                QListWidget {
+                    background-color: #ffffff;
+                    border: 1px solid #cccccc;
+                    border-radius: 4px;
+                    padding: 5px;
+                }
+                """
+            )
+            self.mode_button.setText("Modo Escuro")
 
     # Função para alternar entre os temas
     def toggle_theme(self):

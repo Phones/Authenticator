@@ -19,6 +19,9 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("Autenticação de Dois Fatores")
         self.setStyleSheet(
             """
+            QMessageBox {
+                background-color: #f0f0f0;
+            }
             QMainWindow {
                 background-color: #f0f0f0;
             }
@@ -129,79 +132,5 @@ class MainWindow(QMainWindow):
 
         # Conecta o sinal itemSelectionChanged ao slot de atualização do índice selecionado
         self.list_widget.itemSelectionChanged.connect(self.update_selected_index)
-
-
-    # Função para atualizar o tema
-    def update_theme(self):
-        if self.dark_mode:
-            self.setStyleSheet(
-                """
-                QMainWindow {
-                    background-color: #222222;
-                }
-                QLabel {
-                    color: #ffffff;
-                }
-                QLineEdit {
-                    background-color: #333333;
-                    border: 1px solid #555555;
-                    border-radius: 4px;
-                    padding: 5px;
-                    color: #ffffff;
-                }
-                QPushButton {
-                    background-color: #2980b9;
-                    color: #ffffff;
-                    border: none;
-                    border-radius: 4px;
-                    padding: 8px 16px;
-                }
-                QPushButton:hover {
-                    background-color: #40739e;
-                }
-                QListWidget {
-                    background-color: #333333;
-                    border: 1px solid #555555;
-                    border-radius: 4px;
-                    padding: 5px;
-                    color: #ffffff;
-                }
-                """
-            )
-            self.mode_button.setText("Modo Claro")
-        else:
-            self.setStyleSheet(
-                """
-                QMainWindow {
-                    background-color: #f0f0f0;
-                }
-                QLabel {
-                    color: #000000;
-                }
-                QLineEdit {
-                    background-color: #ffffff;
-                    border: 1px solid #cccccc;
-                    border-radius: 4px;
-                    padding: 5px;
-                }
-                QPushButton {
-                    background-color: #2980b9;
-                    color: #ffffff;
-                    border: none;
-                    border-radius: 4px;
-                    padding: 8px 16px;
-                }
-                QPushButton:hover {
-                    background-color: #40739e;
-                }
-                QListWidget {
-                    background-color: #ffffff;
-                    border: 1px solid #cccccc;
-                    border-radius: 4px;
-                    padding: 5px;
-                }
-                """
-            )
-            self.mode_button.setText("Modo Escuro")
 
 
