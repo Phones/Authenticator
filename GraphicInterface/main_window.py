@@ -19,6 +19,8 @@ from PyQt5.QtCore import QTimer, QSettings
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.selected_index = None
+
         self.setWindowTitle("Autenticação de Dois Fatores")
         self.setStyleSheet(
             """
@@ -222,16 +224,16 @@ class MainWindow(QMainWindow):
 
     # Função para confirmar a exclusão da chave selecionada
     def confirm_delete_key(self):
-        if selected_index is not None:
+        if self.selected_index is not None:
             dialog = ConfirmationDialog(self)
             if dialog.exec_() == QDialog.Accepted:
                 self.delete_key()
 
     # Função para deletar a chave selecionada
     def delete_key(self):
-        if selected_index is not None:
-            del self.keys[selected_index]
-            self.list_widget.takeItem(selected_index)
+        if self.selected_index is not None:
+            del self.keys[self.selected_index]
+            self.list_widget.takeItem(self.selected_index)
             self.save_keys_to_file()  # Salva as chaves no arquivo
 
     # Função para alternar entre os temas
@@ -264,12 +266,11 @@ class MainWindow(QMainWindow):
 
     # Função para atualizar o índice selecionado
     def update_selected_index(self):
-        global selected_index
         selected_items = self.list_widget.selectedItems()
         if selected_items:
-            selected_index = self.list_widget.row(selected_items[0])
+            self.selected_index = self.list_widget.row(selected_items[0])
         else:
-            selected_index = None
+            self.selected_index = None
 
     # Função para atualizar os códigos OTP
     def update_otp_codes(self):
