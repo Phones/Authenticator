@@ -9,9 +9,7 @@ def get_requirements(file_path):
     return [str(req) for req in parse_requirements(requirements)]
 
 # Defina os executáveis e opções
-executables = [
-    Executable("main.py", base=None)
-]
+executables = [Executable("main.py", base="Win32GUI")]
 
 build_options = {
     "packages": [],

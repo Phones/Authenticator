@@ -6,7 +6,7 @@ from authenticator import Authenticator
 def exec_app():
     app = QApplication(sys.argv)
     app.setFont(QFont("Comic Sans MS"))
-    app.setWindowIcon(QIcon('icons/cadeado64.png')) 
+    app.setWindowIcon(QIcon('icons/cadeado64.ico')) 
     window = Authenticator()
     window.show()
     sys.exit(app.exec_())
