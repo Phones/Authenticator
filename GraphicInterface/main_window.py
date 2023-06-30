@@ -13,7 +13,7 @@ from PyQt5.QtWidgets import (
     QDialog,
 )
 from token_opt import TokenOPT
-from confirmation_dialog import ConfirmationDialog
+from GraphicInterface.confirmation_dialog import ConfirmationDialog
 from PyQt5.QtCore import QTimer, QSettings
 
 class MainWindow(QMainWindow):
