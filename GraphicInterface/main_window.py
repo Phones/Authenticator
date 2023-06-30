@@ -1,6 +1,4 @@
-import os
 from PyQt5.QtWidgets import (
-    QApplication,
     QMainWindow,
     QLabel,
     QLineEdit,
@@ -9,12 +7,9 @@ from PyQt5.QtWidgets import (
     QWidget,
     QListWidget,
     QHBoxLayout,
-    QMessageBox,
-    QDialog,
 )
 from token_opt import TokenOPT
-from GraphicInterface.confirmation_dialog import ConfirmationDialog
-from PyQt5.QtCore import QTimer, QSettings
+from PyQt5.QtCore import QTimer
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -135,6 +130,7 @@ class MainWindow(QMainWindow):
         # Conecta o sinal itemSelectionChanged ao slot de atualização do índice selecionado
         self.list_widget.itemSelectionChanged.connect(self.update_selected_index)
 
+
     # Função para atualizar o tema
     def update_theme(self):
         if self.dark_mode:
@@ -207,103 +203,5 @@ class MainWindow(QMainWindow):
                 """
             )
             self.mode_button.setText("Modo Escuro")
-            
-    # Função para adicionar uma nova chave
-    def add_key(self):
-        name = self.name_entry.text().strip()
-        key = self.key_entry.text().strip()
-        if name and key:
-            self.keys.append((name, key))
-            otp = TokenOPT.generate_otp(key)
-            self.list_widget.addItem(f"{name}: {otp}")
-            self.name_entry.clear()
-            self.key_entry.clear()
-            self.save_keys_to_file()  # Salva as chaves no arquivo
-        else:
-            QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
 
-    # Função para confirmar a exclusão da chave selecionada
-    def confirm_delete_key(self):
-        if self.selected_index is not None:
-            dialog = ConfirmationDialog(self)
-            if dialog.exec_() == QDialog.Accepted:
-                self.delete_key()
 
-    # Função para deletar a chave selecionada
-    def delete_key(self):
-        if self.selected_index is not None:
-            del self.keys[self.selected_index]
-            self.list_widget.takeItem(self.selected_index)
-            self.save_keys_to_file()  # Salva as chaves no arquivo
-
-    # Função para alternar entre os temas
-    def toggle_theme(self):
-        self.dark_mode = not self.dark_mode
-        self.update_theme()
-
-    # Função para copiar o código OTP do item selecionado
-    def copy_otp(self, item):
-        otp = item.text().split(":")[-1].strip()
-        clipboard = QApplication.clipboard()
-        clipboard.setText(otp)
-        QMessageBox.information(
-            self, "Sucesso", "O código MFA foi copiado para a área de transferência."
-        )
-
-    # Função para salvar as chaves no arquivo
-    def save_keys_to_file(self):
-        with open("Keys/.keys.txt", "w") as file:
-            for name, key in self.keys:
-                file.write(f"{name},{key}\n")
-
-    # Função para carregar as chaves do arquivo
-    def load_keys_from_file(self):
-        if os.path.exists("Keys/.keys.txt"):
-            with open("Keys/.keys.txt", "r") as file:
-                for line in file:
-                    name, key = line.strip().split(",")
-                    self.keys.append((name, key))
-
-    # Função para atualizar o índice selecionado
-    def update_selected_index(self):
-        selected_items = self.list_widget.selectedItems()
-        if selected_items:
-            self.selected_index = self.list_widget.row(selected_items[0])
-        else:
-            self.selected_index = None
-
-    # Função para atualizar os códigos OTP
-    def update_otp_codes(self):
-        remaining_time = TokenOPT.calculate_remaining_time()
-        self.timer_label.setText(f"Próxima atualização em: {remaining_time} segundos")
-        if remaining_time == 0:
-            for i in range(self.list_widget.count()):
-                name, key = self.keys[i]
-                otp = TokenOPT.generate_otp(key)
-                item = self.list_widget.item(i)
-                item.setText(f"{name}: {otp}")
-
-    def load_settings(self):
-        settings = QSettings("settings.ini", QSettings.IniFormat)
-
-        theme = settings.value("theme", "light")
-        if theme == "dark":
-            self.dark_mode = True
-        else:
-            self.dark_mode = False
-
-        self.update_theme()
-
-    # Função para salvar as configurações
-    def save_settings(self):
-        settings = QSettings("settings.ini", QSettings.IniFormat)
-
-        if self.dark_mode:
-            settings.setValue("theme", "dark")
-        else:
-            settings.setValue("theme", "light")
-
-    # Função para lidar com o evento de fechamento do programa
-    def closeEvent(self, event):
-        self.save_settings()  # Salva as configurações antes de fechar o programa
-        event.accept()
