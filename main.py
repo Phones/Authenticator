@@ -1,11 +1,12 @@
 import sys
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QIcon
 from PyQt5.QtWidgets import QApplication
 from authenticator import Authenticator
 
 def exec_app():
     app = QApplication(sys.argv)
     app.setFont(QFont("Comic Sans MS"))
+    app.setWindowIcon(QIcon('icons/cadeado64.png')) 
     window = Authenticator()
     window.show()
     sys.exit(app.exec_())
