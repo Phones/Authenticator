@@ -1,4 +1,4 @@
-import sys
+import platform
 from cx_Freeze import setup, Executable
 from pkg_resources import parse_requirements
 
@@ -8,8 +8,12 @@ def get_requirements(file_path):
         requirements = file.read().splitlines()
     return [str(req) for req in parse_requirements(requirements)]
 
-# Defina os executáveis e opções
-executables = [Executable("main.py", base="Win32GUI")]
+def get_base():
+    operational_system = platform.system()
+    if  operational_system in "Linux":
+        return None
+    
+    return "Win32GUI"
 
 build_options = {
     "packages": [],
@@ -25,6 +29,10 @@ build_options = {
 python_version = "3.8"
 # Obtenha as dependências do arquivo requirements.txt
 requirements = get_requirements('requirements.txt')
+
+base = get_base()
+# Defina os executáveis e opções
+executables = [Executable("main.py", base=base)]
 
 # Crie o setup com as dependências
 setup(
