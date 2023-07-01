@@ -1,3 +1,4 @@
+import os
 import platform
 from cx_Freeze import setup, Executable
 from pkg_resources import parse_requirements
@@ -8,12 +9,38 @@ def get_requirements(file_path):
         requirements = file.read().splitlines()
     return [str(req) for req in parse_requirements(requirements)]
 
+def check_files_exit():
+    keys_exist = os.path.exists("Keys/.keys.txt")
+    settings_ini_exist = os.path.exists("settings.ini")
+
+    return keys_exist, settings_ini_exist
+
+def create_empty_files():
+    path_keys_file = "Keys/.keys.txt"
+    operational_system = platform.system()
+
+    if not "Linux" in operational_system:
+        path_keys_file = "Keys\\.keys.txt"
+
+    keys_exist, settings_ini_exist = check_files_exit()
+    if not keys_exist:
+        with open(path_keys_file, "w") as arquivo:
+            pass
+
+    if not settings_ini_exist:
+        with open("settings.ini", "w") as arquivo:
+            dark_theme = """[General]\ntheme=dark\n"""
+            arquivo.write(dark_theme)
+
 def get_base():
     operational_system = platform.system()
     if  operational_system in "Linux":
         return None
     
     return "Win32GUI"
+
+# Cria os arquivos caso eles não existam
+create_empty_files()
 
 build_options = {
     "packages": [],
