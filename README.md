@@ -1,2 +1,2 @@
 # Authenticator
-Programa de autentificação de dois fatores para Linux e Windows.
+Programa de autenticação de dois fatores para Linux e Windows.
