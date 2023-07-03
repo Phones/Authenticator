@@ -32,12 +32,12 @@ def create_empty_files():
             dark_theme = """[General]\ntheme=dark\n"""
             arquivo.write(dark_theme)
 
-def get_base():
+def get_base_and_icon_path():
     operational_system = platform.system()
     if  operational_system in "Linux":
-        return None
+        return None, "icons/cadeado64.ico"
     
-    return "Win32GUI"
+    return "Win32GUI", "icons\cadeado64.ico"
 
 # Cria os arquivos caso eles não existam
 create_empty_files()
@@ -57,9 +57,9 @@ python_version = "3.8"
 # Obtenha as dependências do arquivo requirements.txt
 requirements = get_requirements('requirements.txt')
 
-base = get_base()
+base, icon_path = get_base_and_icon_path()
 # Defina os executáveis e opções
-executables = [Executable("main.py", base=base, target_name="Authenticator", icon="icons\cadeado64.ico")]
+executables = [Executable("main.py", base=base, target_name="Authenticator", icon=icon_path)]
 
 # Crie o setup com as dependências
 setup(
