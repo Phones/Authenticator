@@ -33,7 +33,7 @@ print("Copia o arquivo .desktop do programa")
 os.system("cp Authenticator.desktop AuthenticatorSetup/")
 
 print("Zipa a pasta de instalação")
-os.system("zip AuthenticatorSetup")
+os.system("zip -r authenticator-linux-installer-v1.0.zip AuthenticatorSetup")
 
 print("Deleta a pasta build antiga")
 os.system("rm -rf build")
