@@ -162,3 +162,4 @@ cython_debug/
 Keys/**
 settings.ini
 pacote_deb
+AuthenticatorSetup

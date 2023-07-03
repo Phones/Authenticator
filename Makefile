@@ -28,3 +28,8 @@ teste:
 
 	mv setup.py setup2.py
 	mv teste.py setup.py
+
+build_installer_folder_linux:
+	python build_linux_installer.py
+
+

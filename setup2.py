@@ -11,7 +11,8 @@ requirements = get_requirements('/home/paulo/Authenticator/requirements.txt')
 setup(
     name='Authenticator',
     version='1.0',
-    author='Seu Nome',
+    author='Paulo Henrique de Campos',
+    url='https://github.com/Phones/Authenticator',
     author_email='paulohenriqueh178h@gmail.com',
     description='Programa para autenticação de dois fatores',
     packages=find_packages(),
