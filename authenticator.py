@@ -6,12 +6,14 @@ from PyQt5.QtWidgets import (
     QDialog,
 )
 from token_opt import TokenOPT
+from create_logging import get_logger
 from GraphicInterface.main_window import MainWindow
 from GraphicInterface.confirmation_dialog import ConfirmationDialog
 
 class Authenticator(MainWindow):
     def __init__(self):
         super().__init__()
+        self.logger = get_logger(__name__)
 
     def update_otp_codes(self):
         remaining_time = TokenOPT.calculate_remaining_time()
