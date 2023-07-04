@@ -1,4 +1,5 @@
-build:
+create:
+	rm -rf build
 	python setup.py build
 
 build_installer_folder_linux:

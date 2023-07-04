@@ -30,13 +30,14 @@ class Authenticator(MainWindow):
         key = self.key_entry.text().strip()
         if name and key:
             try:
-                self.keys.append((name, key))
                 otp = TokenOPT.generate_otp(key)
+                self.keys.append((name, key))
                 self.list_widget.addItem(f"{name}: {otp}")
                 self.name_entry.clear()
                 self.key_entry.clear()
                 self.save_keys_to_file()  # Salva as chaves no arquivo
-            except:
+            except Exception as error:
+                self.logger.error(f":\n--------------------------\n{error}\n--------------------------\n")
                 QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
         else:
             QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
