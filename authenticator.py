@@ -151,14 +151,14 @@ class Authenticator(MainWindow):
 
     # Função para salvar as chaves no arquivo
     def save_keys_to_file(self):
-        with open("Keys/.keys.txt", "w") as file:
+        with open("/usr/local/Authenticator/Keys/.keys.txt", "w") as file:
             for name, key in self.keys:
                 file.write(f"{name},{key}\n")
 
     # Função para carregar as chaves do arquivo
     def load_keys_from_file(self):
-        if os.path.exists("Keys/.keys.txt"):
-            with open("Keys/.keys.txt", "r") as file:
+        if os.path.exists("/usr/local/Authenticator/Keys/.keys.txt"):
+            with open("/usr/local/Authenticator/Keys/.keys.txt", "r") as file:
                 for line in file:
                     name, key = line.strip().split(",")
                     self.keys.append((name, key))

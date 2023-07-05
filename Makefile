@@ -1,4 +1,4 @@
-create:
+create_build:
 	rm -rf build
 	python setup.py build
 

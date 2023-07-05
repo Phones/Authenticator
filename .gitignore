@@ -162,4 +162,5 @@ cython_debug/
 Keys/**
 settings.ini
 pacote_deb
-AuthenticatorSetup
+authenticator-installer-linux-v1.0
+authenticator-installer-linux-v1.0.zip
