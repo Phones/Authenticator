@@ -29,7 +29,7 @@ check_path_exist_and_deleted()
     fi 
 }
 
-program_path="/usr/local/"
+program_path="/opt/"
 folder_name="Authenticator"
 pwc "blue" "Verifica se o caminho da pasta do pragama existe. Se sim, deleta, para receber a nova"
 check_path_exist_and_deleted "$program_path$folder_name"
@@ -42,7 +42,6 @@ pwc "blue" "Seta as permissões necessarias"
 folder_program_path="$program_path$folder_name"
 sudo chmod -R 755 $folder_program_path
 sudo chown -R $USER:$USER $folder_program_path
-
 
 pwc "blue" "Verifica se o caminho do arquivo desktop do pragama existe no /home/paulo/.local/share. Se sim, deleta, para receber o novo"
 file_name=Authenticator.desktop

@@ -2,8 +2,8 @@
 Name=Authenticator
 Version=1.0
 Comment=Programa para autenticação de dois fatores.
-Exec=/usr/local/Authenticator/authenticator
-Icon=/usr/local/Authenticator/icons/cadeado64.png
+Exec=/opt/Authenticator/authenticator
+Icon=/opt/Authenticator/icons/cadeado64.png
 Terminal=false
 Type=Application
 Categories=Aplicativos;
