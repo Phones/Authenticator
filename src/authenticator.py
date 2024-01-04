@@ -38,7 +38,7 @@ class Authenticator(MainWindow):
                 self.save_keys_to_file()  # Salva as chaves no arquivo
             except Exception as error:
                 self.logger.error(f":\n--------------------------\n{error}\n--------------------------\n")
-                QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
+                QMessageBox.warning(self, "Aviso", f"Error: {error}")
         else:
             QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
 
@@ -151,14 +151,14 @@ class Authenticator(MainWindow):
 
     # Função para salvar as chaves no arquivo
     def save_keys_to_file(self):
-        with open("/opt/Authenticator/Keys/.keys.txt", "w") as file:
+        with open("src/Keys/.keys.txt", "w") as file:
             for name, key in self.keys:
                 file.write(f"{name},{key}\n")
 
     # Função para carregar as chaves do arquivo
     def load_keys_from_file(self):
-        if os.path.exists("/opt/Authenticator/Keys/.keys.txt"):
-            with open("/opt/Authenticator/Keys/.keys.txt", "r") as file:
+        if os.path.exists("src/Keys/.keys.txt"):
+            with open("src/Keys/.keys.txt", "r") as file:
                 for line in file:
                     name, key = line.strip().split(",")
                     self.keys.append((name, key))

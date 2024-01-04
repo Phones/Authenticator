@@ -159,7 +159,7 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-Keys/**
+src/Keys/**
 settings.ini
 pacote_deb
 authenticator-installer-linux-v1.0
