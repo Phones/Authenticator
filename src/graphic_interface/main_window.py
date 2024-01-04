@@ -7,9 +7,12 @@ from PyQt5.QtWidgets import (
     QWidget,
     QListWidget,
     QHBoxLayout,
+    QListWidgetItem,
 )
 from token_opt import TokenOPT
 from PyQt5.QtCore import QTimer
+from PyQt5.QtGui import QFont
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -53,13 +56,16 @@ class MainWindow(QMainWindow):
             """
         )
 
+
+
         self.central_widget = QWidget(self)
         self.setCentralWidget(self.central_widget)
 
         self.layout = QVBoxLayout(self.central_widget)
 
+        font = QFont("Arial", 16, QFont.Bold)
         self.title_label = QLabel("Autenticação de Dois Fatores", self)
-        self.title_label.setStyleSheet("font-size: 24px; font-weight: bold;")
+        self.title_label.setFont(font)
         self.layout.addWidget(self.title_label)
 
         self.list_widget = QListWidget(self)
@@ -67,45 +73,51 @@ class MainWindow(QMainWindow):
 
         self.input_layout = QHBoxLayout()
 
+        font = QFont("Arial", 10)
         self.name_label = QLabel("Nome:", self)
-        self.name_label.setStyleSheet("font-size: 16px;")
+        self.name_label.setFont(font)
         self.input_layout.addWidget(self.name_label)
 
         self.name_entry = QLineEdit(self)
-        self.name_entry.setStyleSheet("font-size: 16px;")
+        self.name_entry.setFont(font)
         self.input_layout.addWidget(self.name_entry)
 
         self.key_label = QLabel("Chave:", self)
-        self.key_label.setStyleSheet("font-size: 16px;")
+        self.key_label.setFont(font)
         self.input_layout.addWidget(self.key_label)
 
         self.key_entry = QLineEdit(self)
-        self.key_entry.setStyleSheet("font-size: 16px;")
+        self.key_entry.setFont(font)
         self.input_layout.addWidget(self.key_entry)
 
         self.layout.addLayout(self.input_layout)
 
         self.button_layout = QHBoxLayout()
-
+        
+        font = QFont("Arial", 12)
         self.add_button = QPushButton("Adicionar Chave", self)
-        self.add_button.setStyleSheet("font-size: 16px; padding: 8px 16px;")
+        self.add_button.setFont(font)
+        self.add_button.setStyleSheet("padding: 8px 16px;")
         self.add_button.clicked.connect(self.add_key)
         self.button_layout.addWidget(self.add_button)
 
         self.delete_button = QPushButton("Deletar Chave", self)
+        self.delete_button.setFont(font)
         self.delete_button.setStyleSheet("background-color: #c0392b; color: #ffffff; border: none; border-radius: 4px; padding: 8px 16px;")
         self.delete_button.clicked.connect(self.confirm_delete_key)
         self.button_layout.addWidget(self.delete_button)
 
         self.mode_button = QPushButton("Modo Escuro", self)
-        self.mode_button.setStyleSheet("font-size: 16px; padding: 8px 16px;")
+        self.mode_button.setFont(font)
+        self.mode_button.setStyleSheet("padding: 8px 16px;")
         self.mode_button.clicked.connect(self.toggle_theme)
         self.button_layout.addWidget(self.mode_button)
 
         self.layout.addLayout(self.button_layout)
 
+        font = QFont("Arial", 10)
         self.timer_label = QLabel("Próxima atualização em: -", self)
-        self.timer_label.setStyleSheet("font-size: 16px;")
+        self.timer_label.setFont(font)
         self.layout.addWidget(self.timer_label)
 
         self.timer = QTimer(self)
@@ -125,7 +137,10 @@ class MainWindow(QMainWindow):
         # Popula a lista com as chaves salvas e seus códigos OTP atualizados
         for name, key in self.keys:
             otp = TokenOPT.generate_otp(key)
-            self.list_widget.addItem(f"{name}: {otp}")
+            item = QListWidgetItem(f"{name}: {otp}")
+            font = QFont("Arial", 12, QFont.Bold)
+            item.setFont(font)
+            self.list_widget.addItem(item)
 
         # Conecta o sinal itemDoubleClicked ao slot de cópia do OTP
         self.list_widget.itemDoubleClicked.connect(self.copy_otp)

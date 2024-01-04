@@ -98,7 +98,7 @@ def check_create_folder(folder_path):
         create_folder(folder_path)
 
 def get_logging_files_path():
-    folder_path = "Logs"
+    folder_path = "logs"
     # Pega a data atual para adicionar ao nome do arquivo
     date_now = get_date_now()
 

@@ -7,15 +7,15 @@ from PyQt5.QtWidgets import (
 )
 from token_opt import TokenOPT
 from create_logging import get_logger
-from GraphicInterface.main_window import MainWindow
-from GraphicInterface.confirmation_dialog import ConfirmationDialog
+from graphic_interface.main_window import MainWindow
+from graphic_interface.confirmation_dialog import ConfirmationDialog
 
 class Authenticator(MainWindow):
     def __init__(self):
         super().__init__()
         self.logger = get_logger(__name__)
 
-    def update_otp_codes(self):
+    def update_otp_codes(self) -> None:
         remaining_time = TokenOPT.calculate_remaining_time()
         self.timer_label.setText(f"Próxima atualização em: {remaining_time} segundos")
         for i in range(self.list_widget.count()):
@@ -25,7 +25,7 @@ class Authenticator(MainWindow):
             item.setText(f"{name}: {otp}")
 
     # Função para adicionar uma nova chave
-    def add_key(self):
+    def add_key(self) -> None:
         name = self.name_entry.text().strip()
         key = self.key_entry.text().strip()
         if name and key:
@@ -38,26 +38,26 @@ class Authenticator(MainWindow):
                 self.save_keys_to_file()  # Salva as chaves no arquivo
             except Exception as error:
                 self.logger.error(f":\n--------------------------\n{error}\n--------------------------\n")
-                QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
+                QMessageBox.warning(self, "Aviso", f"Error: {error}")
         else:
             QMessageBox.warning(self, "Aviso", "Digite um nome e uma chave válida.")
 
     # Função para confirmar a exclusão da chave selecionada
-    def confirm_delete_key(self):
+    def confirm_delete_key(self) -> None:
         if self.selected_index is not None:
             dialog = ConfirmationDialog(self, dialog_dark_mode=self.dark_mode)
             if dialog.exec_() == QDialog.Accepted:
                 self.delete_key()
 
     # Função para deletar a chave selecionada
-    def delete_key(self):
+    def delete_key(self) -> None:
         if self.selected_index is not None:
             del self.keys[self.selected_index]
             self.list_widget.takeItem(self.selected_index)
             self.save_keys_to_file()  # Salva as chaves no arquivo
 
     # Função para atualizar o tema
-    def update_theme(self):
+    def update_theme(self) -> None:
         if self.dark_mode:
             self.setStyleSheet(
                 """
@@ -136,12 +136,12 @@ class Authenticator(MainWindow):
             self.mode_button.setText("Modo Escuro")
 
     # Função para alternar entre os temas
-    def toggle_theme(self):
+    def toggle_theme(self) -> None:
         self.dark_mode = not self.dark_mode
         self.update_theme()
 
     # Função para copiar o código OTP do item selecionado
-    def copy_otp(self, item):
+    def copy_otp(self, item) -> None:
         otp = item.text().split(":")[-1].strip()
         clipboard = QApplication.clipboard()
         clipboard.setText(otp)
@@ -150,28 +150,28 @@ class Authenticator(MainWindow):
         )
 
     # Função para salvar as chaves no arquivo
-    def save_keys_to_file(self):
-        with open("/opt/Authenticator/Keys/.keys.txt", "w") as file:
+    def save_keys_to_file(self) -> None:
+        with open("keys/.keys.txt", "w") as file:
             for name, key in self.keys:
                 file.write(f"{name},{key}\n")
 
     # Função para carregar as chaves do arquivo
-    def load_keys_from_file(self):
-        if os.path.exists("/opt/Authenticator/Keys/.keys.txt"):
-            with open("/opt/Authenticator/Keys/.keys.txt", "r") as file:
+    def load_keys_from_file(self) -> None:
+        if os.path.exists("keys/.keys.txt"):
+            with open("keys/.keys.txt", "r") as file:
                 for line in file:
                     name, key = line.strip().split(",")
                     self.keys.append((name, key))
 
     # Função para atualizar o índice selecionado
-    def update_selected_index(self):
+    def update_selected_index(self) -> None:
         selected_items = self.list_widget.selectedItems()
         if selected_items:
             self.selected_index = self.list_widget.row(selected_items[0])
         else:
             self.selected_index = None
 
-    def load_settings(self):
+    def load_settings(self) -> None:
         settings = QSettings("settings.ini", QSettings.IniFormat)
 
         theme = settings.value("theme", "light")
@@ -183,7 +183,7 @@ class Authenticator(MainWindow):
         self.update_theme()
 
     # Função para salvar as configurações
-    def save_settings(self):
+    def save_settings(self) -> None:
         settings = QSettings("settings.ini", QSettings.IniFormat)
 
         if self.dark_mode:
@@ -192,7 +192,7 @@ class Authenticator(MainWindow):
             settings.setValue("theme", "light")
 
     # Função para lidar com o evento de fechamento do programa
-    def closeEvent(self, event):
+    def closeEvent(self, event) -> None:
         self.save_settings()  # Salva as configurações antes de fechar o programa
         event.accept()
 

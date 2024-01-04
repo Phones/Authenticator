@@ -25,7 +25,7 @@ class ConfirmationDialog(QDialog):
         button_box.rejected.connect(self.reject)
         self.layout.addWidget(button_box)
 
-    def update_dialog_theme(self):
+    def update_dialog_theme(self) -> None:
         if self.dialog_dark_mode:
             self.setStyleSheet("background-color: #222222;") 
         else:

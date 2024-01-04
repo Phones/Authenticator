@@ -6,7 +6,7 @@ import hashlib
 class TokenOPT:
     @staticmethod
     # Função para gerar o código OTP usando HMAC-SHA1
-    def generate_otp(secret_key, interval=30):
+    def generate_otp(secret_key, interval=30) -> str:
         message = int(time.time()) // interval  # Tempo dividido pelo intervalo
         message_bytes = message.to_bytes(8, byteorder="big")
         secret_bytes = base64.b32decode(secret_key, casefold=True)
@@ -19,7 +19,7 @@ class TokenOPT:
 
     @staticmethod
     # Função para calcular o tempo restante até a próxima atualização
-    def calculate_remaining_time(interval=30):
+    def calculate_remaining_time(interval=30) -> int:
         current_time = int(time.time())
         remaining_time = interval - (current_time % interval)
         return remaining_time

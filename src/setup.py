@@ -10,17 +10,17 @@ def get_requirements(file_path):
     return [str(req) for req in parse_requirements(requirements)]
 
 def check_files_exit():
-    keys_exist = os.path.exists("Keys/.keys.txt")
+    keys_exist = os.path.exists("keys/.keys.txt")
     settings_ini_exist = os.path.exists("settings.ini")
 
     return keys_exist, settings_ini_exist
 
 def create_empty_files():
-    path_keys_file = "Keys/.keys.txt"
+    path_keys_file = "keys/.keys.txt"
     operational_system = platform.system()
 
     if not "Linux" in operational_system:
-        path_keys_file = "Keys\\.keys.txt"
+        path_keys_file = "keys\\.keys.txt"
 
     keys_exist, settings_ini_exist = check_files_exit()
     if not keys_exist:
@@ -46,7 +46,7 @@ build_options = {
     "packages": [],
     "excludes": [],
     "include_files": [
-        "Keys/",
+        "keys/",
         "icons/",
         "settings.ini"
     ]
@@ -59,7 +59,7 @@ requirements = get_requirements('requirements.txt')
 
 base, icon_path = get_base_and_icon_path()
 # Defina os executáveis e opções
-executables = [Executable("main.py", base=base, target_name="authenticator", icon=icon_path)]
+executables = [Executable("src/main.py", base=base, target_name="authenticator", icon=icon_path)]
 
 # Crie o setup com as dependências
 setup(
