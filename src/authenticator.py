@@ -7,8 +7,8 @@ from PyQt5.QtWidgets import (
 )
 from token_opt import TokenOPT
 from create_logging import get_logger
-from GraphicInterface.main_window import MainWindow
-from GraphicInterface.confirmation_dialog import ConfirmationDialog
+from graphic_interface.main_window import MainWindow
+from graphic_interface.confirmation_dialog import ConfirmationDialog
 
 class Authenticator(MainWindow):
     def __init__(self):
@@ -151,14 +151,14 @@ class Authenticator(MainWindow):
 
     # Função para salvar as chaves no arquivo
     def save_keys_to_file(self):
-        with open("src/Keys/.keys.txt", "w") as file:
+        with open("src/keys/.keys.txt", "w") as file:
             for name, key in self.keys:
                 file.write(f"{name},{key}\n")
 
     # Função para carregar as chaves do arquivo
     def load_keys_from_file(self):
-        if os.path.exists("src/Keys/.keys.txt"):
-            with open("src/Keys/.keys.txt", "r") as file:
+        if os.path.exists("src/keys/.keys.txt"):
+            with open("src/keys/.keys.txt", "r") as file:
                 for line in file:
                     name, key = line.strip().split(",")
                     self.keys.append((name, key))
