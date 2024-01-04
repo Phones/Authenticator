@@ -1,3 +1,6 @@
+run:
+	python src/main.py
+
 create_build:
 	rm -rf build
 	python setup.py build
