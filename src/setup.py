@@ -59,7 +59,7 @@ requirements = get_requirements('requirements.txt')
 
 base, icon_path = get_base_and_icon_path()
 # Defina os executáveis e opções
-executables = [Executable("main.py", base=base, target_name="authenticator", icon=icon_path)]
+executables = [Executable("src/main.py", base=base, target_name="authenticator", icon=icon_path)]
 
 # Crie o setup com as dependências
 setup(
