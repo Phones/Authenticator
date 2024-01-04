@@ -18,7 +18,7 @@ new_folder_path = f"{build_path}Authenticator"
 os.system(f"mv {folder_path} {new_folder_path}")
 
 print("Cria a pasta de logs do programa")
-os.mkdir(f"{new_folder_path}/Logs")
+os.mkdir(f"{new_folder_path}/logs")
 
 print("Cria pasta para instalação no linux")
 os.mkdir("authenticator-installer-linux-v1.0")
